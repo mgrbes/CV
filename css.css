@@ -1,0 +1,12 @@
+
+.marginauto {
+    margin: 20px auto 40px;
+    display: block;
+	width: 200px;
+	height:200px;
+}
+
+/*body {
+ background-image: url("Background-Picture-Html.jpg");
+ color: white;
+}*/
