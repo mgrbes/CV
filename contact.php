@@ -1,5 +1,6 @@
 <style>
 <?php include 'contactcss.css'; ?>
+session_start();
 </style>
 
 <!DOCTYPE html>
@@ -25,8 +26,16 @@
                 <ul class="navbar-nav ml-auto my-2 my-lg-0">
                     
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="about.php">About</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="makeyourowncv.php">CV</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="login.php">Sign in</a></li>
+					<?php
+						if(isset($_SESSION["loggedin"])){
+							echo '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="makeyourowncv.php">CV</a>';
+							echo '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="logoff.php">Log off</a>';
+						}else{
+							echo '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="login.php">Sign in</a></li>';
+						}
+					?>
+                    
+                    
                     <li class="active"><a class="nav-link js-scroll-trigger" href="contact.php">Contact</a></li>
                 </ul>
             </div>

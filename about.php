@@ -1,5 +1,6 @@
 <style>
 <?php include 'css.css'; ?>
+session_start();
 </style>
 
 <!DOCTYPE html>
@@ -24,8 +25,16 @@
                 <ul class="navbar-nav ml-auto my-2 my-lg-0">
                     
                     <li class="active"><a class="nav-link js-scroll-trigger" href="about.php">About</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="makeyourowncv.php">CV</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="login.php">Sign in</a></li>
+					<?php
+						if(isset($_SESSION["loggedin"])){
+							echo '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="makeyourowncv.php">CV</a>';
+							echo '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="logoff.php">Log off</a>';
+						}else{
+							echo '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="login.php">Sign in</a></li>';
+						}
+					?>
+                    
+                    
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="contact.php">Contact</a></li>
                 </ul>
             </div>
@@ -44,6 +53,7 @@ A curriculum vitae, Latin for "course of life", often shortened as CV or vita, i
     <img class="marginauto" src="f1.jpg" alt="centered image" />
 </div>
 		<p class="body">
+		<br>
 		Hello,
 	  My name is Marko Grbeš I'm from Požega,Croatia, and am currently studying at University of Osijek-Faculty of Electrical Engineering, Computer Science and Information Technologies. This is my web page that'll help you make your CV, hopefully it helped you. This is my project from Web programming course.</p>
  

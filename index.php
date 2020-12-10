@@ -1,3 +1,12 @@
+<?php
+define('DB_SERVER', 'localhost');
+   define('DB_USERNAME', 'root');
+   define('DB_PASSWORD', '');
+   define('DB_DATABASE', 'user');
+   $db = mysqli_connect(DB_SERVER,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
    
@@ -12,16 +21,25 @@
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav" >
+     <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav" >
         <div class="container">
-            <a class="active" href="index.php">Home</a>
+            <a class="nav-item" href="index.php">Home</a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto my-2 my-lg-0">
                     
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="about.php">About</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="makeyourowncv.php">CV</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="login.php">Sign in</a></li>
+					<?php
+						if(isset($_SESSION["loggedin"])){
+							echo '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="makeyourowncv.php">CV</a></li>';
+							echo '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="logoff.php">Log off</a></li>';
+							
+						}else{
+							echo '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="login.php">Sign in</a></li>';
+						}
+					?>
+                    
+                    
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="contact.php">Contact</a></li>
                 </ul>
             </div>

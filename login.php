@@ -10,7 +10,8 @@
       // username and password sent from form 
       
       $myemail = mysqli_real_escape_string($db,$_POST['Email']);
-      $mypassword = mysqli_real_escape_string($db,$_POST['Password']); 
+      $mypassword = mysqli_real_escape_string($db,$_POST['Password']);
+	  $myuser_id = mysqli_real_escape_string($db,$_POST['user_id']);	
       
       
       $sql = "SELECT id FROM users WHERE email = '$myemail' and password = '$mypassword'";
@@ -26,7 +27,7 @@
       if($count == 1) {
          $_SESSION['loggedin'] = true;
          $_SESSION['login_user'] = $myemail;
-        
+         
          
          header("location: index.php");
       }else {
@@ -55,8 +56,16 @@
                 <ul class="navbar-nav ml-auto my-2 my-lg-0">
                     
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="about.php">About</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="makeyourowncv.php">CV</a></li>
-                    <li class="active"><a class="nav-link js-scroll-trigger" href="login.php">Sign in</a></li>
+					<?php
+						if(isset($_SESSION["loggedin"])){
+							echo '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="makeyourowncv.php">CV</a></li>';
+							echo '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="logoff.php">Log off</a></li>';
+						}else{
+							echo '<li class="active"><a class="nav-link js-scroll-trigger" href="login.php">Sign in</a></li>';
+						}
+					?>
+                    
+                    
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="contact.php">Contact</a></li>
                 </ul>
             </div>

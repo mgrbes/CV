@@ -1,5 +1,31 @@
 <?php
 
+require_once "connect.php";
+session_start();
+if (!$_SESSION['loggedin']){
+    header("location: login.php");
+} 
+else{
+if(isset($_POST['submit'])){
+$sql = mysqli_query($link, "INSERT INTO cv(user_id,age,education,hobies,work_experience,social_network,about)
+VALUES ('".$SESSION["myuser_id"]."','".$_POST["age"]."','".$_POST["education"]."','".$_POST["hobies"]."','".$_POST["work_experience"]."','".$_POST["social_network"]."','".$_POST["about"]."')");
+$sql1 = mysqli_query($link, "SELECT * FROM users ");
+
+if($sql1){
+    header("location: cv.php");
+}else{
+    header("location: makeyourowncv.php");
+}
+if(mysqli_query($link, $sql)){
+    echo "Records added successfully.";
+} else{
+    echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+}
+}
+mysqli_close($link);
+
+
+}
 
 ?>
 
@@ -25,8 +51,16 @@
                 <ul class="navbar-nav ml-auto my-2 my-lg-0">
                     
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="about.php">About</a></li>
-                    <li class="active"><a class="nav-link js-scroll-trigger" href="makeyourowncv.php">CV</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="login.php">Sign in</a></li>
+					<?php
+						if(isset($_SESSION["loggedin"])){
+							echo '<li class="active"><a class="nav-link js-scroll-trigger" href="makeyourowncv.php">CV</a>';
+							echo '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="logoff.php">Log off</a></li>';
+						}else{
+							echo '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="login.php">Sign in</a></li>';
+						}
+					?>
+                    </li>
+                    
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="contact.php">Contact</a></li>
                 </ul>
             </div>
@@ -44,20 +78,24 @@ A curriculum vitae, Latin for "course of life", often shortened as CV or vita, i
         
       <div id="main">
 <h1>Your CV</h1>
-<p>Help us answering questions so we can make CV about you.</p>
+<p>Help us by answering questions so we can make CV about you.</p>
 <div id="login">
 
 <hr/>
 <form action="" method="post">
 
-<label>Ime Proizvoda :</label>
-<input type="text" name="proizvod" id="proizvod" required="required" /><br/><br />
-<label>Opis :</label>
-<input type="text" name="opis" id="opis"/><br/><br />
-<label>Kolicina : </label>
-<input type="text" name="kolicina" id="kolicina" required="required"/><br/><br />
-<label>Cijena : </label>
-<input type="text" name="cijena" id="cijena" required="required"/><br/><br />
+<label>Education :</label>
+<input type="text" name="education" id="education" required="required" /><br/><br />
+<label>Hobies :</label>
+<input type="text" name="hobies" id="hobies"/><br/><br />
+<label>Work experience : </label>
+<input type="text" name="work_experience" id="work_experience" required="required"/><br/><br />
+<label>Social network : </label>
+<input type="text" name="social_network" id="social_network" required="required"/><br/><br />
+<label>Birth day : </label>
+<input type="text" name="birth_day" id="birth_day" required="required"/><br/><br />
+<label>About : </label>
+<input type="text" name="about" id="about" required="required" /><br/><br />
 <input type="submit" value=" Submit " name="submit"/><br />
 </form>
     
