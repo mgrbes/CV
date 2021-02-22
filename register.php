@@ -1,41 +1,9 @@
 <?php
-
 session_start();
-
-require_once "connect.php";
-if (isset($_POST['value'])){
-$sql = "INSERT INTO users (firstName,lastName,gender,email,password,number)
-VALUES ('".$_POST["firstName"]."','".$_POST["lastName"]."','".$_POST["gender"]."','".$_POST["email"]."','".$_POST["password"]."','".$_POST["number"]."')"; 
-//$result = $link->query("SELECT * FROM korisnici WHERE Username = '".$_POST["username"]."'");
-$result = mysqli_query($link, "SELECT * FROM users WHERE email = '".$_POST["email"]."'");
-
-if($result->num_rows == 0) {
-    /* $sql = "INSERT INTO korisnici (Ime,Prezime,Username,Lozinka,Uloga)
-    VALUES ('".$_POST["ime"]."','".$_POST["prezime"]."','".$_POST["username"]."','".$_POST["lozinka"]."','Kupac')"; */
-    $sql = mysqli_query($link,"INSERT INTO users (firstName,lastName,gender,email,password,number)
-    VALUES ('".$_POST["firstName"]."','".$_POST["lastName"]."','".$_POST["gender"]."','".$_POST["email"]."','".$_POST["password"]."','".$_POST["number"]."')"); 
-    
-    $sql = header("Location: index.php");
-} else {
-    echo "Email already exists";
-}
-}
-
-if(isset($_POST['submit'])){
-	
-if(mysqli_query($link, $sql)){
-    echo "Records added successfully.";
-} else{
-    echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
-    mysqli_close($link);
-}
-}
-//mysqli_close($link);
 
 
 
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
    

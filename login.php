@@ -1,4 +1,5 @@
 <?php
+  
    define('DB_SERVER', 'localhost');
    define('DB_USERNAME', 'root');
    define('DB_PASSWORD', '');
@@ -11,7 +12,7 @@
       
       $myemail = mysqli_real_escape_string($db,$_POST['Email']);
       $mypassword = mysqli_real_escape_string($db,$_POST['Password']);
-	  $myuser_id = mysqli_real_escape_string($db,$_POST['user_id']);	
+	    $myuser_id = mysqli_real_escape_string($db,$_POST['user_id']);	
       
       
       $sql = "SELECT id FROM users WHERE email = '$myemail' and password = '$mypassword'";
@@ -58,7 +59,7 @@
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="about.php">About</a></li>
 					<?php
 						if(isset($_SESSION["loggedin"])){
-							echo '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="makeyourowncv.php">CV</a></li>';
+							echo '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="CV.php">CV</a></li>';
 							echo '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="logoff.php">Log off</a></li>';
 						}else{
 							echo '<li class="active"><a class="nav-link js-scroll-trigger" href="login.php">Sign in</a></li>';

@@ -31,7 +31,7 @@ session_start();
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="about.php">About</a></li>
 					<?php
 						if(isset($_SESSION["loggedin"])){
-							echo '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="makeyourowncv.php">CV</a></li>';
+							echo '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="CV.php">CV</a></li>';
 							echo '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="logoff.php">Log off</a></li>';
 							
 						}else{

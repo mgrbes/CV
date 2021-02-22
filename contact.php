@@ -1,6 +1,36 @@
 <style>
-<?php include 'contactcss.css'; ?>
-session_start();
+<?php 
+  include 'contactcss.css'; 
+
+  $message_sent=false;
+
+  if(isset($_POST['email']) && $_POST['email']!= ''){
+    if(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
+          $userName=$_POST['name'];
+          $userEmail=$_POST['email'];
+          $messageSubject=$_POST['subject'];
+          $message=$_POST['message'];
+
+          $to="marko.grbes1@gmail.com";
+          $body="";
+
+          $body .="From: ".$userName. "\r\n";
+          $body .="Email: ".$userEmail. "\r\n";
+          $body .="Message: ".$message. "\r\n";
+
+          mail($to,$messageSubject,$body);
+
+
+          $message_sent=true;
+    }
+  }
+
+
+
+
+
+?>
+
 </style>
 
 <!DOCTYPE html>
@@ -17,7 +47,15 @@ session_start();
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
+  <?php 
+  if($message_sent):
+  ?>
+        <h3>Thanks, we'll be in touch! </h3>
 
+  <?php
+  else:
+    
+  ?>  
     <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav" >
         <div class="container">
             <a class="nav-item" href="index.php">Home</a>
@@ -57,32 +95,22 @@ session_start();
     </div>
     <div class="column">
       <form action="index.php">
-        <label for="fname">First Name</label>
-        <input type="text" id="fname" name="firstname" placeholder="Your name..">
-        <label for="lname">Last Name</label>
-        <input type="text" id="lname" name="lastname" placeholder="Your last name..">
-        <label for="country">Country</label>
-        <select id="country" name="country">
-          <option value="australia">Australia</option>
-          <option value="canada">Canada</option>
-          <option value="usa">USA</option>
-		  <option value="croatia">Croatia</option>
-          <option value="serbia">Serbia</option>
-          <option value="russia">Russia</option>
-		  <option value="slovenia">Slovenia</option>
-          <option value="bih">Bosnia and Herzegovina</option>
-          <option value="montenegro">Montenegro</option>
-		  <option value="hungary">Hungary</option>
-          <option value="germany">Germany</option>
-          <option value="austria">Austria</option>
-        </select>
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" placeholder="Your name..">
+        <label for="email">Email</label>
+        <input type="text" id="email" name="email" placeholder="Your email..">
         <label for="subject">Subject</label>
-        <textarea id="subject" name="subject" placeholder="Write something.." style="height:170px"></textarea>
+        <input type="text" id="subject" name="subject" placeholder="Subject..">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" placeholder="Write something.." style="height:170px"></textarea>
         <input type="submit" value="Submit">
       </form>
     </div>
   </div>
 </div>
+<?php
+endif;
+?>
 
 </body>
 </html>
