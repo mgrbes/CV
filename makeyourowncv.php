@@ -6,6 +6,7 @@ if (!$_SESSION['loggedin']){
     header("location: login.php");
 } 
 else{
+    
 if(isset($_POST['submit'])){
 $sql = mysqli_query($link, "INSERT INTO cv(user_id,age,education,hobies,work_experience,social_network,about)
 VALUES ('".$SESSION["myuser_id"]."','".$_POST["age"]."','".$_POST["education"]."','".$_POST["hobies"]."','".$_POST["work_experience"]."','".$_POST["social_network"]."','".$_POST["about"]."')");
