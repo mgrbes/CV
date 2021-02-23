@@ -1,6 +1,6 @@
 <?php
 
-require_once "connect.php";
+
 session_start();
 if (!$_SESSION['loggedin']){
     header("location: login.php");
@@ -22,7 +22,7 @@ if(mysqli_query($link, $sql)){
     echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
 }
 }
-mysqli_close($link);
+//mysqli_close($link);
 
 
 }
@@ -92,8 +92,8 @@ A curriculum vitae, Latin for "course of life", often shortened as CV or vita, i
 <input type="text" name="work_experience" id="work_experience" required="required"/><br/><br />
 <label>Social network : </label>
 <input type="text" name="social_network" id="social_network" required="required"/><br/><br />
-<label>Birth day : </label>
-<input type="text" name="birth_day" id="birth_day" required="required"/><br/><br />
+<label>Age : </label>
+<input type="text" name="age" id="age" required="required"/><br/><br />
 <label>About : </label>
 <input type="text" name="about" id="about" required="required" /><br/><br />
 <input type="submit" value=" Submit " name="submit"/><br />

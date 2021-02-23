@@ -1,7 +1,7 @@
 <?php
 
 require_once "connect.php";
-session_start();
+
 if (!isset($_SESSION['loggedin'])){
     header("location: login.php");
 } 
@@ -22,7 +22,7 @@ if(mysqli_query($link, $sql)){
     echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
 }
 }
-mysqli_close($link);
+//mysqli_close($link);
 
 
 }
