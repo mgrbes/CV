@@ -1,7 +1,8 @@
 <style>
 <?php 
-  include 'contactcss.css'; 
 
+  include 'contactcss.css'; 
+session_start();
   $message_sent=false;
 
   if(isset($_POST['email']) && $_POST['email']!= ''){

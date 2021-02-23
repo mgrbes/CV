@@ -1,6 +1,7 @@
 <style>
-<?php include 'css.css'; ?>
-session_start();
+<?php include 'css.css';
+session_start(); ?>
+
 </style>
 
 <!DOCTYPE html>

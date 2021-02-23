@@ -25,8 +25,9 @@ $firstName="";
 $lastName="";
 $gender="";
 $email="";
-$password1="";
+$password="";
 $number="";
+
 $errors=array();
 
 
@@ -36,13 +37,13 @@ if(isset($_POST['register'])){
 
 //Register
 function register(){
-    global $link,$errors, $firstName,$lastName,$gender,$email,$number,$password1;
+    global $link,$errors, $firstName,$lastName,$gender,$email,$number;
 
     $firstName=mysqly_real_escape_string($link,$_POST['firstName']);
     $lastName=mysqly_real_escape_string($link,$_POST['lastName']);
     $gender=mysqly_real_escape_string($link,$_POST['gender']);
     $email=mysqly_real_escape_string($link,$_POST['email']);
-    $password1=mysqly_real_escape_string($link,$_POST['password1']);
+    $password=mysqly_real_escape_string($link,$_POST['password']);
     $number=mysqly_real_escape_string($link,$_POST['number']);
 
     if(empty($firstName)) {
@@ -57,13 +58,13 @@ function register(){
     	array_push($errors, "Fill Last Name field !");
     	} 
 
-    	if(empty($password1)) {
+    	if(empty($password)) {
     	array_push($errors, "Fill Password field !");
     	} 
 
     	if(empty($gender)) {
         array_push($errors, "Choose gender!");
-        
+        }
         if(empty($number)) {
             array_push($errors, "Type in your number!");
         } 
@@ -72,26 +73,108 @@ function register(){
     }
     
     if (count($errors) == 0) {
-		if (isset($_POST['username'])){
-			$password = md5($password_1);//encrypt the password before saving in the database
-			$query = "INSERT INTO users (username, email, fname, lname, password, address) 
-						VALUES('$username', '$email', '$fname','$lname', '$password','$address')";
-			mysqli_query($db, $query);
+		if (isset($_POST['email'])){
+			$password = md5($password);//encrypt the password before saving in the database
+			$query = "INSERT INTO users (firstName, lastName, gender, email, password, number) 
+					        	VALUES('$firstName', '$lastName', '$gender','$email', '$password','$number')";
+			mysqli_query($link, $query);
 			$_SESSION['success']  = "New user successfully created!!";
-			header('location: profil.php');
+			header('location: index.php');
 		}else{
-			$query = "INSERT INTO users (username, email, fname, lname, password, address) 
-						VALUES('$username', '$email', '$fname','$lname', '$password','$address')";
-			mysqli_query($db, $query);
+			$query = "INSERT INTO users (firstName, lastName, gender, email, password, number) 
+                                VALUES('$firstName', '$lastName', '$gender','$email', '$password','$number')";
+			mysqli_query($link, $query);
 
 			// get id of the created user
-			$logged_in_user_id = mysqli_insert_id($db);
+			$logged_in_user_id = mysqli_insert_id($link);
 
 			$_SESSION['user'] = getUserById($logged_in_user_id); // put logged in user in session
 			$_SESSION['success']  = "You are now logged in";
-		}	header('location: profil.php');				
+		}	header('location: index.php');				
+    }
+
+    function getUserById($id){
+        global $link;
+        $query = "SELECT * FROM users WHERE id=" . $id;
+        $result = mysqli_query($link, $query);
+    
+        $user = mysqli_fetch_assoc($result);
+        return $user;
+    }
+
+    function display_error() {
+        global $errors;
+    
+        if (count($errors) > 0){
+            echo '<div class="error">';
+                foreach ($errors as $error){
+                    echo $error .'<br>';
+                }
+            echo '</div>';
+        }
+    }
+    function isLoggedIn(){
+	if (isset($_SESSION['user'])) {
+		return true;
+	}else{
+		return false;
+    }
+    if (isset($_GET['logout'])) {
+        session_destroy();
+        unset($_SESSION['user']);
+        header("location: login.php");
+    }
+  
+
+
+
+}
+
+//login
+function e($val){
+	global $link;
+	return mysqli_real_escape_string($link, trim($val));
+}
+
+if (isset($_POST['login'])) {
+	login();
+}
+
+function login(){
+	global $link, $email, $errors;
+
+	// grap form values
+	$username = e($_POST['email']);
+	$password = e($_POST['password']);
+
+	// make sure form is filled properly
+	if (empty($email)) {
+		array_push($errors, "Email is required");
+	}
+	if (empty($password)) {
+		array_push($errors, "password is required");
+	}
+
+	// attempt login if no errors on form
+	if (count($errors) == 0) {
+		$password = md5($password);
+
+		$query = "SELECT * FROM users WHERE email='$email' AND password='$password' LIMIT 1";
+		$results = mysqli_query($link, $query);
+
+		if (mysqli_num_rows($results) == 1) { // user found
+			// check if user is admin or user
+			$logged_in_user = mysqli_fetch_assoc($results);
+			$_SESSION['user'] = $logged_in_user;
+			$_SESSION['success']  = "You are now logged in";
+			header('location: index.php');
+			
+		}else {
+			array_push($errors, "Wrong email/password combination");
+		}
 	}
 }
+
 
 
 //$password=password_hash($password,PASSWORD_BCRYPT);
@@ -110,8 +193,7 @@ if($result->num_rows == 0) {
     echo "Email already exists";
 }*/
 
-mysqli_close($link);
 
-header("Location:login.php");
+
 
 ?>
