@@ -126,7 +126,7 @@ A curriculum vitae, Latin for "course of life", often shortened as CV or vita, i
                   name="number"
                 />
               </div>
-              <input type="submit" class="btn btn-primary" />
+              <input type="submit" id="submit" name="submit" class="btn btn-primary" />
             </form>
           </div>
           <div class="panel-footer text-right">

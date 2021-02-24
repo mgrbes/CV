@@ -1,31 +1,12 @@
 <?php
+session_start();
+define('DB_SERVER', 'localhost');
+define('DB_USERNAME', 'root');
+define('DB_PASSWORD', '');
+define('DB_NAME', 'user');
 
-require_once "connect.php";
-
-if (!isset($_SESSION['loggedin'])){
-    header("location: login.php");
-} 
-else{
-if(isset($_POST['submit'])){
-$sql = mysqli_query($link, "INSERT INTO cv(user_id,age,education,hobies,work_experience,social_network,about)
-VALUES ('".$SESSION["myuser_id"]."','".$_POST["age"]."','".$_POST["education"]."','".$_POST["hobies"]."','".$_POST["work_experience"]."','".$_POST["social_network"]."','".$_POST["about"]."')");
-$sql1 = mysqli_query($link, "SELECT * FROM users ");
-
-if($sql1){
-    header("location: cv.php");
-}else{
-    header("location: makeyourowncv.php");
-}
-if(mysqli_query($link, $sql)){
-    echo "Records added successfully.";
-} else{
-    echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
-}
-}
-//mysqli_close($link);
-
-
-}
+/* Attempt to connect to MySQL database */
+$link = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 
 ?>
 
@@ -78,25 +59,47 @@ A curriculum vitae, Latin for "course of life", often shortened as CV or vita, i
         
       <div id="main">
 <h1>Your CV</h1>
-<p>Help us by answering questions so we can make CV about you.</p>
+<p>Here we made CV about information you gave to us.</p>
 <div id="login">
 
 <hr/>
 <form action="" method="post">
 
-<label>Education :</label>
-<input type="text" name="education" id="education" required="required" /><br/><br />
+<label>Name :</label>
+<?php 
+/*
+$sql="SELECT * FROM users WHERE id='".$_SESSION['id']."'";
+$result=mysqli_query($link,$sql);
+$resultCheck=mysqli_num_rows($result);
+
+if($resultCheck>0){
+    while($row=mysqli_fetch_assoc($result)){
+        echo $row['firstName'] . "<br>";
+    }
+}*/
+?>
+<label>Last Name :</label>
+
+<label>Email :</label>
+
+<label>Gender :</label>
+
+<label>Number :</label>
+
 <label>Hobies :</label>
-<input type="text" name="hobies" id="hobies"/><br/><br />
+
+<label>Age :</label>
+
+<label>Education :</label>
+
 <label>Work experience : </label>
-<input type="text" name="work_experience" id="work_experience" required="required"/><br/><br />
+
 <label>Social network : </label>
-<input type="text" name="social_network" id="social_network" required="required"/><br/><br />
+
 <label>Birth day : </label>
-<input type="text" name="birth_day" id="birth_day" required="required"/><br/><br />
+
 <label>About : </label>
-<input type="text" name="about" id="about" required="required" /><br/><br />
-<input type="submit" value=" Submit " name="submit"/><br />
+
 </form>
     
 </div>

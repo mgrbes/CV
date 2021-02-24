@@ -1,39 +1,13 @@
 <?php
-
-
 session_start();
-if (!$_SESSION['loggedin']){
-    header("location: login.php");
-} 
-else{
-    
-if(isset($_POST['submit'])){
-$sql = mysqli_query($link, "INSERT INTO cv(user_id,age,education,hobies,work_experience,social_network,about)
-VALUES ('".$SESSION["myuser_id"]."','".$_POST["age"]."','".$_POST["education"]."','".$_POST["hobies"]."','".$_POST["work_experience"]."','".$_POST["social_network"]."','".$_POST["about"]."')");
-$sql1 = mysqli_query($link, "SELECT * FROM users ");
 
-if($sql1){
-    header("location: cv.php");
-}else{
-    header("location: makeyourowncv.php");
-}
-if(mysqli_query($link, $sql)){
-    echo "Records added successfully.";
-} else{
-    echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
-}
-}
-//mysqli_close($link);
-
-
-}
 
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
    
-<head>
+<head >
   <title>Curriculum Vitae</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -42,11 +16,34 @@ if(mysqli_query($link, $sql)){
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
-<body>
 
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav" >
-        <div class="container">
-            <a class="nav-item" href="index.php">Home</a>
+<style>
+body, html {
+  height: 100%;
+  margin: 0;
+}
+
+.bg {
+  /* The image used */
+  background-image: url("grad.jpg");
+
+  /* Full height */
+  height: 100%; 
+  border-radius: 5px; 
+  padding: 10px;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+</style>
+
+<body >
+
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav" style="background-color:#FFFFFF">
+        <div class="container" >
+            <a class="nav-item"  href="index.php">Home</a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto my-2 my-lg-0">
@@ -68,36 +65,46 @@ if(mysqli_query($link, $sql)){
         </div>
     </nav>
 
-<div class="jumbotron text-center">
+<div class="jumbotron text-center" style="background-color:#FFFFFF">
   <h1>Curriculum Vitae</h1>
   <p>
 A curriculum vitae, Latin for "course of life", often shortened as CV or vita, is a written overview of someone's life's work.</p> 
 </div>
   
-<div class="container">
+<div class="bg" >
   
         
       <div id="main">
 <h1>Your CV</h1>
 <p>Help us by answering questions so we can make CV about you.</p>
-<div id="login">
+<div >
 
 <hr/>
-<form action="" method="post">
+<form action="connect.php" method="post">
 
 <label>Education :</label>
-<input type="text" name="education" id="education" required="required" /><br/><br />
+<textarea id="education" name="education" placeholder=" Educational methods include teaching, training, storytelling, discussion and directed research." 
+style="width:500px"></textarea><br/><br />
 <label>Hobies :</label>
-<input type="text" name="hobies" id="hobies"/><br/><br />
+
+<textarea id="hobies" name="hobies" placeholder="Hobbies help you to become a more well-rounded person, and eventually, they often turn into helpful life skills." 
+style="width:500px"></textarea>
+<br/><br />
 <label>Work experience : </label>
-<input type="text" name="work_experience" id="work_experience" required="required"/><br/><br />
+<textarea id="work_experience" name="work_experience" placeholder="Work experience can increase you chance of getting hired significantly." 
+style="width:500px"></textarea><br/><br />
 <label>Social network : </label>
-<input type="text" name="social_network" id="social_network" required="required"/><br/><br />
+<textarea id="social_network" name="social_network" placeholder="You can leave your Social network profile link here." 
+style="width:500px"></textarea><br/><br />
 <label>Age : </label>
-<input type="text" name="age" id="age" required="required"/><br/><br />
+<input type="text" name="age" id="age" placeholder="Your age." required="required"/><br/><br />
 <label>About : </label>
-<input type="text" name="about" id="about" required="required" /><br/><br />
-<input type="submit" value=" Submit " name="submit"/><br />
+<textarea id="about" name="about" placeholder="Something about you." 
+
+style="width:500px"></textarea><br/><br />
+<label>uid : </label>
+<textarea id="user_id" name="user_id" placeholder="Something about you."> </textarea><br/><br />
+<input type="submit" value=" Submit " name="Submit" id="submit"/><br />
 </form>
     
 </div>

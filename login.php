@@ -3,20 +3,23 @@
    define('DB_USERNAME', 'root');
    define('DB_PASSWORD', '');
    define('DB_DATABASE', 'user');
-   $db = mysqli_connect(DB_SERVER,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
+   $link = mysqli_connect(DB_SERVER,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
    session_start();
    
    if($_SERVER["REQUEST_METHOD"] == "POST") {
       // username and password sent from form 
       
-      $myemail = mysqli_real_escape_string($db,$_POST['Email']);
-      $mypassword = mysqli_real_escape_string($db,$_POST['Password']);
-	 // $myuser_id = mysqli_real_escape_string($db,$_POST['user_id']);	
+      $email = mysqli_real_escape_string($link,$_POST['email']);
+      $password = mysqli_real_escape_string($link,$_POST['password']);
+      $hashedpassword=md5($password);
+      //$password = md5($password);
+   // $myuser_id = mysqli_real_escape_string($db,$_POST['user_id']);	
+      //$mypassword=password_hash($password,PASSWORD_BCRYPT);
       
+      echo $hashedpassword;
+      $sql = "SELECT email,password FROM users WHERE email = '$email' and password = '$hashedpassword' LIMIT 1";
       
-      $sql = "SELECT id FROM users WHERE email = '$myemail' and password = '$mypassword'";
-      
-      $result = mysqli_query($db,$sql);
+      $result = mysqli_query($link,$sql);
       $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
       
       
@@ -26,7 +29,7 @@
 		
       if($count == 1) {
          $_SESSION['loggedin'] = true;
-         $_SESSION['login_user'] = $myemail;
+         $_SESSION['login_user'] = $email;
          
          
          header("location: index.php");
@@ -89,9 +92,9 @@ A curriculum vitae, Latin for "course of life", often shortened as CV or vita, i
         <hr/>
 			<form action="" method="post">
             <label>Email :</label>
-			<input type="text" name="Email" placeholder="Email" id="Email" required="required"	/><br/><br />	 
+			      <input type="text" name="email" placeholder="Email" id="email" required="required"	/><br/><br />	 
             <label>Password :</label>	
-            <input type="password" name="Password" placeholder="Password" id="Password" required = "required" /><br/><br />
+            <input type="password" name="password" placeholder="Password" id="password" required = "required" /><br/><br />
             <input type="submit" value="Login">
 			</form>
 			<p>

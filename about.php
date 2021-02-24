@@ -16,9 +16,28 @@ session_start(); ?>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
+<style>
+body, html {
+  height: 100%;
+  margin: 0;
+}
+
+.wg {
+  /* The image used */
+ /* background-color:#99CCFF;*/
+
+  /* Full height */
+  height: 100%; 
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+</style>
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav" >
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav" style="background-color:#FFFFFF">
         <div class="container">
             <a class="nav-item" href="index.php">Home</a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -42,13 +61,13 @@ session_start(); ?>
         </div>
     </nav>
 
-<div class="jumbotron text-center">
+<div class="jumbotron text-center" style="background-color:#FFFFFF">
   <h1>About</h1>
   <p>
 A curriculum vitae, Latin for "course of life", often shortened as CV or vita, is a written overview of someone's life's work.</p> 
 </div>
   
-<div class="container">
+<div class="wg">
  
 		<div>
     <img class="marginauto" src="f1.jpg" alt="centered image" />
