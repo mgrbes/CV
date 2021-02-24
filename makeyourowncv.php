@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+include 'connect.php'
 
 ?>
 
@@ -102,9 +102,8 @@ style="width:500px"></textarea><br/><br />
 <textarea id="about" name="about" placeholder="Something about you." 
 
 style="width:500px"></textarea><br/><br />
-<label>uid : </label>
-<textarea id="user_id" name="user_id" placeholder="Something about you."> </textarea><br/><br />
-<input type="submit" value=" Submit " name="Submit" id="submit"/><br />
+
+<input type="submit" value=" Submit " name="Submit" id="submit"/><input type="button" onclick= "window.location='CV.php'" class="Redirect" value="Check CV's"/>
 </form>
     
 </div>

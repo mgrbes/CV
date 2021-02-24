@@ -2,6 +2,9 @@
 
 
 session_start();
+if(($_SESSION["loggedin"])){ 
+  echo $_SESSION["login_user"]; 
+}
 ?>
 
 <!DOCTYPE html>

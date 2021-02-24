@@ -5,7 +5,7 @@
    define('DB_DATABASE', 'user');
    $link = mysqli_connect(DB_SERVER,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
    session_start();
-   
+  //echo $_SESSION['user'];
    if($_SERVER["REQUEST_METHOD"] == "POST") {
       // username and password sent from form 
       
@@ -13,10 +13,10 @@
       $password = mysqli_real_escape_string($link,$_POST['password']);
       $hashedpassword=md5($password);
       //$password = md5($password);
-   // $myuser_id = mysqli_real_escape_string($db,$_POST['user_id']);	
+      //$myuser_id = mysqli_real_escape_string($link,$_POST['user_id']);	
       //$mypassword=password_hash($password,PASSWORD_BCRYPT);
       
-      echo $hashedpassword;
+      
       $sql = "SELECT email,password FROM users WHERE email = '$email' and password = '$hashedpassword' LIMIT 1";
       
       $result = mysqli_query($link,$sql);
